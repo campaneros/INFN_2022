@@ -1,10 +1,10 @@
-ARG BUILDER_IMAGE=rootproject/root:6.26.02-ubuntu22.04
+ARG BUILDER_IMAGE=rootproject/root:6.26.02-ubuntu20.04
 FROM ${BUILDER_IMAGE} as builder
 
 USER root
 WORKDIR /usr/local
 
-SHELL [ "/bin/bash", "-c" ]
+SHELL [ "/bin/bash","--login","-c"]
 
 RUN apt-get -qq -y update && \
     apt-get -qq -y install --no-install-recommends \
@@ -19,12 +19,14 @@ RUN apt-get -qq -y update && \
       python3-dev \
       python3-pip \
       python3-tk \
+      python3.10 \
       wget \
       ghostscript \
-      rsync \ 
+      rsync \
+      wget\ 
       git && \
     apt-get -y clean && \
-    apt-get -y autoremove && \
+    #apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
@@ -42,8 +44,12 @@ RUN useradd --shell /bin/bash -m docker && \
    chown -R --from=root docker /home/docker && \
    chown -R --from=root docker /usr/local/share 
 
+
 # Folder for volume sharing
 RUN mkdir /data && chmod a+rwx /data
+
+
+
 
 # Use C.UTF-8 locale to avoid issues with ASCII encoding
 ENV LC_ALL=C.UTF-8
@@ -65,6 +71,9 @@ RUN cp /root/.profile ${HOME}/.profile && \
 # Switch to docker user
 ENV USER docker
 USER docker
+#ENV PYTHONPATH=/usr/local/lib
+#ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+#ENV PATH=${HOME}/.local/bin:$PATH
 
 
 
@@ -73,6 +82,11 @@ RUN python -m pip --no-cache-dir install --upgrade jupyter
 
 RUN mkdir /home/docker/.local && chmod a+rwx -R /home/docker/.local
 
+#COPY mltutorial.yml . 
+
+#RUN "conda env create -f mltutorial.yml"
+#RUN "conda init bash"
+#RUN "conda activate mltutorial"
 
 USER docker
 # Default working is the volume shared folder

@@ -6,7 +6,7 @@ set -o pipefail
 
 
 #image="valsdav/vbscan-school:1.2"
-image="mcampana/infn2022:1.2"
+image="campaneros/infn2022:1.1"
 
 WORKDIR=$1
 COMMAND=${2:-default}
@@ -18,7 +18,7 @@ then
 fi
 
 
-docker pull ${image}
+#docker pull ${image}
 
 case $COMMAND in
   "start")
@@ -56,20 +56,20 @@ case $COMMAND in
 	-v "${WORKDIR}":"/data" \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-    --name vbscan \
+    --name infn \
 	"${image}" \
     "root";
     ;;
 
     "jupyter")
       docker run \
-	-ti -d --rm \
+	-it --rm \
     --user $(id -u):$(id -g) \
 	-v "${WORKDIR}":"/data" \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     -p 8080:8080 \
-    --name vbscan_jupyter \
+    --name infn_jupyter \
 	"${image}" \
     "jupyter notebook --ip=0.0.0.0 --port=8080 --no-browser";
     ;;
@@ -81,7 +81,7 @@ case $COMMAND in
 	-v "${WORKDIR}":"/data" \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-    --name vbscan \
+    --name infn \
 	"${image}"
     ;;
 
