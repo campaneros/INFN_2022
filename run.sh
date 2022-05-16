@@ -5,7 +5,6 @@ set -u
 set -o pipefail
 
 
-#image="valsdav/vbscan-school:1.2"
 image="campaneros/infn2022:1.1"
 
 WORKDIR=$1
@@ -18,7 +17,7 @@ then
 fi
 
 
-#docker pull ${image}
+docker pull ${image}
 
 case $COMMAND in
   "start")
@@ -28,7 +27,7 @@ case $COMMAND in
 	-v "${WORKDIR}":"/data" \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-    --name vbscan \
+    --name infn \
 	"${image}" ;
     ;;
 
@@ -43,7 +42,7 @@ case $COMMAND in
 	-v "${WORKDIR}":"/data" \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-    --name vbscan \
+    --name infn \
 	"${image}" \
     "python";
     ;;
