@@ -5,7 +5,7 @@ You need to install docker first. Please checkout detailed instructions for Linu
 To install the relevant helper scripts to run the docker images just clone the repository on your system.
 
 ```
-git clone https://github.com/campaneros/INFN_2022/.git
+git clone https://github.com/campaneros/INFN_2022.git
 ```
 
 # Usage and files sharing
