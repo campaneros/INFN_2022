@@ -26,7 +26,7 @@ mkdir $WORKSPACE
 
 # Install (if not already done) the helper script repository
 git clone https://github.com/campaneros/INFN_2022.git
-cd vbscan-school
+cd INFN_2022
 
 # run.sh is a script to setup and run the docker enviroment
 ./run.sh $WORKSPACE 
@@ -52,20 +52,20 @@ It is also possible to just start the docker in the background and then open and
 ./run.sh $WORKSPACE start
 
 # Now to open a terminal just run
-docker exec -ti vbscan bash
+docker exec -ti infn bash
 
 # or to open a specific program
-docker exec -ti vbscan python
+docker exec -ti infn python
 
 # or to open a specific program
-docker exec -ti vbscan "python /data/your-script.py"
+docker exec -ti infn "python /data/your-script.py"
 ```
 
 To stop the docker process and all the programs inside just execute:
 
 ```
-docker stop vbscan
-docker rmr vbscan
+docker stop infn
+docker rmr infn
 
 #or use the helper program
 ./run.sh $WORKSPACE clean
@@ -84,5 +84,5 @@ docker logs infn_jupyter
 The docker image will be running in background with a jupyter notebook session open. To close it, run:
 
 ```
-docker stop vbscan_jupyter
+docker stop infn_jupyter
 ```
