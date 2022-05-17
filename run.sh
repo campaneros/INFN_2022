@@ -5,7 +5,7 @@ set -u
 set -o pipefail
 
 
-image="campaneros/infn2022:1.1"
+image="campaneros/infn2022:1.2"
 
 WORKDIR=$1
 COMMAND=${2:-default}
