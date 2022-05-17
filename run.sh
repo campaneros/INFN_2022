@@ -62,7 +62,7 @@ case $COMMAND in
 
     "jupyter")
       docker run \
-	-it --rm \
+	-it -d --rm \
     --user $(id -u):$(id -g) \
 	-v "${WORKDIR}":"/data" \
     -e DISPLAY=$DISPLAY \
